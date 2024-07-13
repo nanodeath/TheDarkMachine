@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://c1hq5ly6jxajr"]
+[gd_scene load_steps=15 format=3 uid="uid://c1hq5ly6jxajr"]
 
 [ext_resource type="Texture2D" uid="uid://buybt2fkbamm0" path="res://art/soldier.png" id="1_21syi"]
 [ext_resource type="Texture2D" uid="uid://bwwd2xlwproyp" path="res://art/base_front_entrance.png" id="1_p2wh8"]
 [ext_resource type="Script" path="res://scripts/Soldier.gd" id="2_au141"]
+[ext_resource type="PackedScene" uid="uid://dfcqn8x5s3vyf" path="res://scenes/turret.tscn" id="4_8bcj8"]
 
 [sub_resource type="Gradient" id="Gradient_31awa"]
 offsets = PackedFloat32Array(1)
@@ -150,3 +151,13 @@ shape = SubResource("CapsuleShape2D_iu1bv")
 libraries = {
 "": SubResource("AnimationLibrary_54v2u")
 }
+
+[node name="Turret" parent="." instance=ExtResource("4_8bcj8")]
+position = Vector2(1046, 426)
+scale = Vector2(-2, 2)
+bullet_velocity = 800.0
+
+[node name="Gun" parent="Turret" index="0"]
+rotation = 0.621786
+
+[editable path="Turret"]
