@@ -134,6 +134,7 @@ position = Vector2(728, 584)
 
 [node name="InputManager" type="Node2D" parent="."]
 script = ExtResource("20_13r6i")
+clickable_mask = 16
 
 [connection signal="button_pushed" from="PushButton" to="Turret" method="shoot_burst"]
 

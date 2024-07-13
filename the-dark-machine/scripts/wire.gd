@@ -43,13 +43,13 @@ func equipment_connect(global_position: Vector2) -> bool:
 	var collisions := space_state.intersect_point(query_params)
 	for c in collisions:
 		var collider := c["collider"] as Node
+		if collider.get_parent() is PhysicsBody2D or collider.get_parent() is Area2D:
+			collider = collider.get_parent()
 		
 		var connectable_source := collider.get_node_or_null("ConnectableSource") as ConnectableSource
 		if connectable_source and connectable_source.wire_compatible:
 			print("Can connect source to: ", connectable_source)
 			source = connectable_source
-			#get_parent().remove_child(self)
-			#source.add_child(self)
 			reparent(source)
 			break
 		
