@@ -52,7 +52,9 @@ func _unhandled_input(event):
 		if button_event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 			# defined in wire.gd
 			if ghost.has_method("equipment_connect"):
-				var done_connecting = ghost.equipment_connect(button_event.global_position)
+				var user_placed_marker := preload("res://scenes/user_placed.tscn").instantiate() as UserPlaced
+				user_placed_marker.returning.connect(func(): available_count += 1)
+				var done_connecting = ghost.equipment_connect(button_event.global_position, user_placed_marker)
 				if done_connecting:
 					available_count -= 1
 					ghost = null

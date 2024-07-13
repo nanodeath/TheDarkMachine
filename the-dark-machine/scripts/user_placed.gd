@@ -4,4 +4,6 @@ signal returning
 
 func return_equipment():
 	emit_signal("returning")
-	get_parent().queue_free()
+	if is_inside_tree():
+		# Might be getting freed imminently, e.g. wire
+		get_parent().queue_free()

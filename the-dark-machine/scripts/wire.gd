@@ -34,7 +34,7 @@ func _process(delta):
 	sprite.visible = show_sprite
 
 ## returns true if done connecting, false otherwise
-func equipment_connect(global_position: Vector2) -> bool:
+func equipment_connect(global_position: Vector2, user_placed: UserPlaced) -> bool:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	var space_state := get_world_2d().direct_space_state
 	var query_params := PhysicsPointQueryParameters2D.new()
@@ -61,5 +61,17 @@ func equipment_connect(global_position: Vector2) -> bool:
 	
 	if source and target:
 		source.connect_to(target)
+		# Release the wire
+		var disconnected = false
+		source.tree_exiting.connect(func():
+			if not disconnected:
+				disconnected = true
+				user_placed.return_equipment()
+			)
+		target.tree_exiting.connect(func():
+			if not disconnected:
+				disconnected = true
+				user_placed.return_equipment()
+			)
 		return true
 	return false
