@@ -1,0 +1,178 @@
+name: "Godot Build and Deploy"
+on: push
+
+env:
+  # The Godot version of the export template you're using. Should match the container.image versions below. 
+  GODOT_VERSION: 4.2.2
+  # The name of the file to generate.
+  EXPORT_NAME: clicky-clicker
+  # The name of your game directory relative to the project root.
+  PROJECT_PATH: clicky-clicker
+  # See https://itch.io/docs/butler/pushing.html for more information here.
+  # This is the user/game you're uploading.
+  ITCHIO_PROJECT_NAME: nanodeath/clicky-clicker
+  ITCHIO_CHANNEL_WEB: web
+  
+# To auth pushes to itch.io, you'll also need to set a BUTLER_API_KEY variable 
+# 1. https://itch.io/docs/butler/login.html#running-butler-from-ci-builds-travis-ci-gitlab-ci-etc
+# 2. https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
+
+jobs:
+  build-web:
+    name: Web Build
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.2.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Web Build
+        run: |
+          mkdir -v -p build/web/
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "Web" ../build/web/index.html
+      # Workaround for SharedArrayBuffer support on GitHub Pages
+      # See: https://github.com/godotengine/godot-docs/issues/7084
+      # https://github.com/godotengine/godot-proposals/issues/6616#issuecomment-1513340085
+      - name: Inject coi-serviceworker
+        run: |
+          cp external/coi-serviceworker/coi-serviceworker.js build/web/coi-serviceworker.js
+          sed -i 's#\(		<script src="index.js"></script>\)#		<script src="coi-serviceworker.js"></script>\n\1#g' build/web/index.html
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web
+          path: build/web
+
+  deploy-web:
+    name: "Web Deploy: GitHub Pages"
+    needs: build-web
+    runs-on: ubuntu-latest
+    # Only run deploy on mainline instead of all branches, like the build step.
+    if: github.ref == 'refs/heads/mainline'
+    permissions:
+      # Grants permissions required to write to gh-pages branch.
+      contents: write
+    steps:
+      # We still need this checkout because github-pages-deploy-action expects it.
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web
+          path: build/web
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build/web # The folder the action should deploy.
+  
+  deploy-web-itch:
+    # See https://itch.io/docs/butler/pushing.html
+    name: "Web Deploy: itch.io"
+    needs: build-web
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/mainline'
+    env:
+      BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web
+          path: build/web
+      - name: Install butler
+        run: |
+          sudo apt-get install curl unzip
+          curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip
+          chmod +x butler
+      - name: Push to itch.io
+        run: ./butler push build/web ${{ env.ITCHIO_PROJECT_NAME }}:${{ env.ITCHIO_CHANNEL_WEB }}
+  
+  export-windows:
+    name: Windows Export
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/mainline' && false # remove if you want to enable
+    container:
+      image: barichello/godot-ci:4.2.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Windows Build
+        run: |
+          mkdir -v -p build/windows
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: windows
+          path: build/windows
+
+  export-linux:
+    name: Linux Export
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/mainline' && false # remove if you want to enable
+    container:
+      image: barichello/godot-ci:4.2.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Linux Build
+        run: |
+          mkdir -v -p build/linux
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "Linux/X11" ../build/linux/$EXPORT_NAME.x86_64
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux
+          path: build/linux
+
+  export-mac:
+    name: Mac Export
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/mainline' && false # remove if you want to enable
+    # but it's a whole thing: https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_macos.html
+    container:
+      image: barichello/godot-ci:4.2.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Mac Build
+        run: |
+          mkdir -v -p build/mac/
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "macOS" ../build/mac/$EXPORT_NAME.zip
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: mac
+          path: build/mac
