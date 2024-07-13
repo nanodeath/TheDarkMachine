@@ -14,6 +14,7 @@ func shoot_burst():
 
 func shoot():
 	var bullet_instance := bullet.instantiate() as RigidBody2D
+	bullet_instance.add_collision_exception_with(get_parent())
 	get_tree().root.add_child(bullet_instance)
 	bullet_instance.global_position = global_position
 	bullet_instance.global_rotation = gun.global_rotation

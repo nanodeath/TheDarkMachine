@@ -1,10 +1,9 @@
 class_name Wire extends Node2D
 
 var source: ConnectableSource
-var target: Node2D
+var target: ConnectableTarget
 @onready var line = $Line2D
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	line.add_point(Vector2.ZERO)
 	line.add_point(Vector2.ZERO)
@@ -35,9 +34,17 @@ func equipment_connect(global_position: Vector2):
 	var collisions := space_state.intersect_point(query_params)
 	for c in collisions:
 		var collider := c["collider"] as Node
-		var connectable := collider.get_node_or_null("ConnectableSource") as ConnectableSource
-		if connectable and connectable.wire_compatible:
-			print("Can connect source to: ", connectable)
-			source = connectable
+		
+		var connectable_source := collider.get_node_or_null("ConnectableSource") as ConnectableSource
+		if connectable_source and connectable_source.wire_compatible:
+			print("Can connect source to: ", connectable_source)
+			source = connectable_source
 			break
+		
+		var connectable_target := collider.get_node_or_null("ConnectableTarget") as ConnectableTarget
+		if connectable_target and connectable_target.wire_compatible:
+			print("Can connect target to: ", connectable_target)
+			target = connectable_target
+			break
+		
 	#print("Connecting wire at ", global_position)
