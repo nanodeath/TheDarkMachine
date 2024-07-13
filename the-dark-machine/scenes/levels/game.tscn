@@ -142,6 +142,7 @@ clickable_mask = 16
 [node name="DaysSinceLastAccident" parent="." instance=ExtResource("21_qflkp")]
 position = Vector2(868, 120)
 
+[connection signal="died" from="Soldier" to="DaysSinceLastAccident" method="reset_counter" flags=6]
 [connection signal="button_pushed" from="PushButton" to="Turret" method="shoot_burst"]
 
 [editable path="Turret"]

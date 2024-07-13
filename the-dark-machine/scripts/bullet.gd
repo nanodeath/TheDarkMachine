@@ -13,4 +13,7 @@ func _process(delta):
 
 func _on_body_entered(body):
 	print("bullet hit ", body)
+	var health := body.get_node_or_null("Health") as Health
+	if health:
+		health.damage(1)
 	queue_free()
