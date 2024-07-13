@@ -7,8 +7,10 @@ class_name Turret extends Sprite2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	animation_player.play("fire_burst")
 	pass
+	
+func shoot_burst():
+	animation_player.play("fire_burst")
 
 func shoot():
 	var bullet_instance := bullet.instantiate() as RigidBody2D

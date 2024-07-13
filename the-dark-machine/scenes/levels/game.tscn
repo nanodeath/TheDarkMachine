@@ -1,9 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://c1hq5ly6jxajr"]
+[gd_scene load_steps=21 format=3 uid="uid://c1hq5ly6jxajr"]
 
 [ext_resource type="Texture2D" uid="uid://b5h5v0tkjbu4c" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sky Horizon.png" id="1_3s3mg"]
+[ext_resource type="Texture2D" uid="uid://kw5xoj4idbfr" path="res://art/floor_pushbutton.png" id="1_ahopf"]
+[ext_resource type="Theme" uid="uid://c6vl46g3sqglo" path="res://game.tres" id="1_gpqwa"]
 [ext_resource type="Texture2D" uid="uid://bwwd2xlwproyp" path="res://art/base_front_entrance.png" id="1_p2wh8"]
 [ext_resource type="Texture2D" uid="uid://5nlmkm6khrv4" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Back.png" id="2_52rg0"]
 [ext_resource type="Texture2D" uid="uid://dbdwnecs0yj0l" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Sun.png" id="2_cck5q"]
+[ext_resource type="Script" path="res://scripts/ui/place_equipment.gd" id="3_7r8rn"]
 [ext_resource type="Texture2D" uid="uid://8rw3f5aq05xo" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Mid.png" id="3_m0o1l"]
 [ext_resource type="PackedScene" uid="uid://dfcqn8x5s3vyf" path="res://scenes/turret.tscn" id="4_8bcj8"]
 [ext_resource type="Texture2D" uid="uid://l4r2snreg772" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Front.png" id="4_k56jt"]
@@ -15,8 +18,58 @@
 [ext_resource type="Script" path="res://scripts/cloud.gd" id="12_ofyt2"]
 [ext_resource type="Texture2D" uid="uid://cx4ukeh4uph5c" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Player Ground Rock 1.png" id="14_1qn44"]
 [ext_resource type="Texture2D" uid="uid://q444fli2xk3u" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Dried Tree.png" id="16_nrhal"]
+[ext_resource type="PackedScene" uid="uid://b0p43bvh823my" path="res://scenes/floor_push_button.tscn" id="16_ou3wv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4txh"]
+atlas = ExtResource("1_ahopf")
+region = Rect2(0, 0, 16, 16)
 
 [node name="Game" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gpqwa")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/UI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/MarginContainer/HBoxContainer/PanelContainer"]
+visible = false
+layout_mode = 2
+texture = SubResource("AtlasTexture_o4txh")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/UI/MarginContainer/HBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_o4txh")
+stretch_mode = 4
+script = ExtResource("3_7r8rn")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(575, 156)
@@ -57,7 +110,7 @@ texture = ExtResource("1_p2wh8")
 position = Vector2(924, 560)
 
 [node name="Turret" parent="." instance=ExtResource("4_8bcj8")]
-position = Vector2(1046, 426)
+position = Vector2(1014, 350)
 scale = Vector2(-2, 2)
 bullet_velocity = 800.0
 
@@ -85,5 +138,10 @@ texture = ExtResource("14_1qn44")
 [node name="DriedTree" type="Sprite2D" parent="."]
 position = Vector2(427, 364)
 texture = ExtResource("16_nrhal")
+
+[node name="PushButton" parent="." instance=ExtResource("16_ou3wv")]
+position = Vector2(728, 584)
+
+[connection signal="button_pushed" from="PushButton" to="Turret" method="shoot_burst"]
 
 [editable path="Turret"]

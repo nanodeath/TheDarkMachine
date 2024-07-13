@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0p43bvh823my"]
+
+[ext_resource type="Texture2D" uid="uid://kw5xoj4idbfr" path="res://art/floor_pushbutton.png" id="1_6qdxc"]
+[ext_resource type="Script" path="res://scripts/floor_push_button.gd" id="1_ww7j7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06tsj"]
+atlas = ExtResource("1_6qdxc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ud5fq"]
+atlas = ExtResource("1_6qdxc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w0d12"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06tsj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ud5fq")
+}],
+"loop": true,
+"name": &"pushed",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ak63"]
+size = Vector2(22, 7.5)
+
+[node name="PushButton" type="Area2D"]
+position = Vector2(0, -14)
+script = ExtResource("1_ww7j7")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_w0d12")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.25)
+shape = SubResource("RectangleShape2D_2ak63")
