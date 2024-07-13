@@ -42,3 +42,11 @@ func _unhandled_input(event):
 				ghost.modulate = Color.WHITE
 				ghost.process_mode = Node.PROCESS_MODE_INHERIT
 				ghost = null
+		elif button_event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
+			_cancel_placement()
+	elif ghost and event.is_action_released("ui_cancel"):
+		_cancel_placement()
+
+func _cancel_placement():
+	ghost.queue_free()
+	ghost = null
