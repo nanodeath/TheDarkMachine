@@ -22,7 +22,6 @@ func _ready():
 	equipment.queue_free()
 
 func _pressed():
-	print("Click!")
 	var equipment := equipment_type.instantiate()
 	equipment.process_mode = Node.PROCESS_MODE_DISABLED
 	get_tree().root.add_child(equipment)
@@ -39,8 +38,12 @@ func _unhandled_input(event):
 			if ghost.has_method("equipment_connect"):
 				ghost.equipment_connect(button_event.global_position)
 			else:
+				# Place the item!
 				ghost.modulate = Color.WHITE
 				ghost.process_mode = Node.PROCESS_MODE_INHERIT
+				var user_placed_marker := Node.new()
+				user_placed_marker.name = "UserPlaced"
+				ghost.add_child(user_placed_marker)
 				ghost = null
 		elif button_event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
 			_cancel_placement()
