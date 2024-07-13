@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c1hq5ly6jxajr"]
+[gd_scene load_steps=22 format=3 uid="uid://c1hq5ly6jxajr"]
 
 [ext_resource type="Texture2D" uid="uid://b5h5v0tkjbu4c" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sky Horizon.png" id="1_3s3mg"]
 [ext_resource type="Theme" uid="uid://cdl6ttsrrepl5" path="res://game.tres" id="1_gpqwa"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://q444fli2xk3u" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Dried Tree.png" id="16_nrhal"]
 [ext_resource type="PackedScene" uid="uid://dt5ij0j1l0tmo" path="res://scenes/floor_push_button.tscn" id="16_ou3wv"]
 [ext_resource type="Script" path="res://scripts/input_manager.gd" id="20_13r6i"]
+[ext_resource type="PackedScene" uid="uid://bhiejapru68ft" path="res://scenes/days_since_last_accident.tscn" id="21_qflkp"]
 
 [node name="Game" type="Node2D"]
 
@@ -137,6 +138,9 @@ position = Vector2(728, 584)
 [node name="InputManager" type="Node2D" parent="."]
 script = ExtResource("20_13r6i")
 clickable_mask = 16
+
+[node name="DaysSinceLastAccident" parent="." instance=ExtResource("21_qflkp")]
+position = Vector2(868, 120)
 
 [connection signal="button_pushed" from="PushButton" to="Turret" method="shoot_burst"]
 

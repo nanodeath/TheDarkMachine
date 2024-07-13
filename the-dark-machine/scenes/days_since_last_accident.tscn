@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhiejapru68ft"]
+
+[ext_resource type="Script" path="res://scripts/days_sign.gd" id="1_mc7od"]
+[ext_resource type="FontFile" uid="uid://dgtt615qg24ad" path="res://vendor/fonts/segment7/Segment7Standard.otf" id="2_eab0d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1mpr"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.18, 0.18, 0.18, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.31, 0.31, 0.31, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8urm2"]
+bg_color = Color(0.92, 0.92, 0.92, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vqrc"]
+bg_color = Color(0.13, 0.13, 0.13, 1)
+
+[node name="DaysSinceLastAccident" type="Node2D"]
+script = ExtResource("1_mc7od")
+
+[node name="Sign" type="PanelContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -122.5
+offset_top = -31.0
+offset_right = 122.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_v1mpr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Sign"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="RichTextLabel" parent="Sign/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "DAYS SINCE LAST ACCIDENT:"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Panel" type="PanelContainer" parent="Sign/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8urm2")
+
+[node name="Counter" type="RichTextLabel" parent="Sign/HBoxContainer/Panel"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_eab0d")
+theme_override_fonts/mono_font = ExtResource("2_eab0d")
+theme_override_font_sizes/normal_font_size = 18
+text = "3"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Column" type="Panel" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -7.5
+offset_right = 7.5
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4vqrc")
