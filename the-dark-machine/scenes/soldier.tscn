@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dweantd0j2ken"]
+[gd_scene load_steps=5 format=3 uid="uid://b0i32n031m5nt"]
 
 [ext_resource type="Script" path="res://scripts/Soldier.gd" id="1_ciair"]
 [ext_resource type="Texture2D" uid="uid://buybt2fkbamm0" path="res://art/soldier.png" id="2_4ypbi"]

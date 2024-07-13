@@ -21,7 +21,7 @@ func _ready():
 	
 	if texture:
 		equipment_button.texture_normal = texture
-		
+	equipment.queue_free()
 
 func _pressed():
 	print("Click!")
@@ -30,7 +30,6 @@ func _pressed():
 	get_tree().root.add_child(equipment)
 	ghost = equipment
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if ghost:
 		ghost.global_position = get_global_mouse_position()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0p43bvh823my"]
+[gd_scene load_steps=7 format=3 uid="uid://dt5ij0j1l0tmo"]
 
 [ext_resource type="Texture2D" uid="uid://kw5xoj4idbfr" path="res://art/floor_pushbutton.png" id="1_6qdxc"]
 [ext_resource type="Script" path="res://scripts/floor_push_button.gd" id="1_ww7j7"]
