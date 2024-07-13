@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c1hq5ly6jxajr"]
+[gd_scene load_steps=20 format=3 uid="uid://c1hq5ly6jxajr"]
 
 [ext_resource type="Texture2D" uid="uid://b5h5v0tkjbu4c" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sky Horizon.png" id="1_3s3mg"]
 [ext_resource type="Theme" uid="uid://cdl6ttsrrepl5" path="res://game.tres" id="1_gpqwa"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://8rw3f5aq05xo" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Mid.png" id="3_m0o1l"]
 [ext_resource type="PackedScene" uid="uid://dfcqn8x5s3vyf" path="res://scenes/turret.tscn" id="4_8bcj8"]
 [ext_resource type="Texture2D" uid="uid://l4r2snreg772" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Front.png" id="4_k56jt"]
+[ext_resource type="PackedScene" uid="uid://dvq1fl61sriad" path="res://scenes/wire.tscn" id="4_odxye"]
 [ext_resource type="Texture2D" uid="uid://bhle88x5p51gh" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Background Horizon.png" id="5_a7nnl"]
 [ext_resource type="Texture2D" uid="uid://cc5itir6ki0ar" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Fog 1.png" id="6_g164a"]
 [ext_resource type="PackedScene" uid="uid://b0i32n031m5nt" path="res://scenes/soldier.tscn" id="9_skyjd"]
@@ -53,6 +54,10 @@ alignment = 1
 [node name="EquipmentButtonContainer" parent="CanvasLayer/UI/MarginContainer/HBoxContainer" instance=ExtResource("2_dnria")]
 layout_mode = 2
 equipment_type = ExtResource("16_ou3wv")
+
+[node name="EquipmentButtonContainer2" parent="CanvasLayer/UI/MarginContainer/HBoxContainer" instance=ExtResource("2_dnria")]
+layout_mode = 2
+equipment_type = ExtResource("4_odxye")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(575, 156)
