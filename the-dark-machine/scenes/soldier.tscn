@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dweantd0j2ken"]
+
+[ext_resource type="Script" path="res://scripts/Soldier.gd" id="1_ciair"]
+[ext_resource type="Texture2D" uid="uid://buybt2fkbamm0" path="res://art/soldier.png" id="2_4ypbi"]
+[ext_resource type="Script" path="res://scripts/ai/patrol.gd" id="3_1fnwp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iu1bv"]
+radius = 7.0
+height = 60.0
+
+[node name="Soldier" type="CharacterBody2D"]
+position = Vector2(-195, 0)
+script = ExtResource("1_ciair")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_4ypbi")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_iu1bv")
+
+[node name="AiPatrol" type="Node" parent="."]
+script = ExtResource("3_1fnwp")
+distance = 200.0
+speed = 100.0
+pause_duration = 3.0
