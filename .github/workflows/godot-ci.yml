@@ -5,12 +5,12 @@ env:
   # The Godot version of the export template you're using. Should match the container.image versions below. 
   GODOT_VERSION: 4.2.2
   # The name of the file to generate.
-  EXPORT_NAME: clicky-clicker
+  EXPORT_NAME: the-dark-machine
   # The name of your game directory relative to the project root.
-  PROJECT_PATH: clicky-clicker
+  PROJECT_PATH: the-dark-machine
   # See https://itch.io/docs/butler/pushing.html for more information here.
   # This is the user/game you're uploading.
-  ITCHIO_PROJECT_NAME: nanodeath/clicky-clicker
+  ITCHIO_PROJECT_NAME: nanodeath/the-dark-machine
   ITCHIO_CHANNEL_WEB: web
   
 # To auth pushes to itch.io, you'll also need to set a BUTLER_API_KEY variable 
@@ -80,7 +80,7 @@ jobs:
     name: "Web Deploy: itch.io"
     needs: build-web
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/mainline'
+    if: github.ref == 'refs/heads/mainline' && false
     env:
       BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
     steps:
