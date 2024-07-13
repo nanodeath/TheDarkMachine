@@ -1,0 +1,152 @@
+[gd_scene load_steps=14 format=3 uid="uid://c1hq5ly6jxajr"]
+
+[ext_resource type="Texture2D" uid="uid://buybt2fkbamm0" path="res://art/soldier.png" id="1_21syi"]
+[ext_resource type="Texture2D" uid="uid://bwwd2xlwproyp" path="res://art/base_front_entrance.png" id="1_p2wh8"]
+[ext_resource type="Script" path="res://scripts/Soldier.gd" id="2_au141"]
+
+[sub_resource type="Gradient" id="Gradient_31awa"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.410263, 0.876105, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ay7fj"]
+gradient = SubResource("Gradient_31awa")
+width = 1
+
+[sub_resource type="Gradient" id="Gradient_wve7x"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0.76, 0.28, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_h2tsp"]
+gradient = SubResource("Gradient_wve7x")
+width = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iu1bv"]
+radius = 7.0
+height = 60.0
+
+[sub_resource type="Animation" id="Animation_ymdbh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(893, 568)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_3xhcw"]
+resource_name = "default"
+
+[sub_resource type="Animation" id="Animation_2l6xc"]
+resource_name = "walk_left"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(893, 568), Vector2(733, 568)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_36uvi"]
+resource_name = "walk_right"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(733, 568), Vector2(893, 568)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_54v2u"]
+_data = {
+"RESET": SubResource("Animation_ymdbh"),
+"default": SubResource("Animation_3xhcw"),
+"walk_left": SubResource("Animation_2l6xc"),
+"walk_right": SubResource("Animation_36uvi")
+}
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(575, 326)
+scale = Vector2(1150, 650)
+texture = SubResource("GradientTexture1D_ay7fj")
+
+[node name="Ground" type="Sprite2D" parent="."]
+position = Vector2(575.75, 533)
+scale = Vector2(1152.5, 252)
+texture = SubResource("GradientTexture1D_h2tsp")
+
+[node name="BaseFrontEntrance" type="Sprite2D" parent="."]
+position = Vector2(902, 389)
+scale = Vector2(2, 2)
+texture = ExtResource("1_p2wh8")
+
+[node name="Soldier" type="CharacterBody2D" parent="."]
+position = Vector2(893, 568)
+script = ExtResource("2_au141")
+
+[node name="Sprite" type="Sprite2D" parent="Soldier"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_21syi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Soldier"]
+shape = SubResource("CapsuleShape2D_iu1bv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Soldier"]
+libraries = {
+"": SubResource("AnimationLibrary_54v2u")
+}
