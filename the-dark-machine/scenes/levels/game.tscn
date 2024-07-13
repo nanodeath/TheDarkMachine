@@ -1,25 +1,21 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1hq5ly6jxajr"]
+[gd_scene load_steps=23 format=3 uid="uid://c1hq5ly6jxajr"]
 
+[ext_resource type="Texture2D" uid="uid://b5h5v0tkjbu4c" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sky Horizon.png" id="1_3s3mg"]
 [ext_resource type="Texture2D" uid="uid://buybt2fkbamm0" path="res://art/soldier.png" id="1_21syi"]
 [ext_resource type="Texture2D" uid="uid://bwwd2xlwproyp" path="res://art/base_front_entrance.png" id="1_p2wh8"]
+[ext_resource type="Texture2D" uid="uid://5nlmkm6khrv4" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Back.png" id="2_52rg0"]
 [ext_resource type="Script" path="res://scripts/Soldier.gd" id="2_au141"]
+[ext_resource type="Texture2D" uid="uid://dbdwnecs0yj0l" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Sun.png" id="2_cck5q"]
+[ext_resource type="Texture2D" uid="uid://8rw3f5aq05xo" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Mid.png" id="3_m0o1l"]
 [ext_resource type="PackedScene" uid="uid://dfcqn8x5s3vyf" path="res://scenes/turret.tscn" id="4_8bcj8"]
-
-[sub_resource type="Gradient" id="Gradient_31awa"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0.410263, 0.876105, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ay7fj"]
-gradient = SubResource("Gradient_31awa")
-width = 1
-
-[sub_resource type="Gradient" id="Gradient_wve7x"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 0.76, 0.28, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_h2tsp"]
-gradient = SubResource("Gradient_wve7x")
-width = 1
+[ext_resource type="Texture2D" uid="uid://l4r2snreg772" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Front.png" id="4_k56jt"]
+[ext_resource type="Texture2D" uid="uid://bhle88x5p51gh" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Background Horizon.png" id="5_a7nnl"]
+[ext_resource type="Texture2D" uid="uid://cc5itir6ki0ar" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Fog 1.png" id="6_g164a"]
+[ext_resource type="Texture2D" uid="uid://djkh20ar1ghx7" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Cloud.png" id="10_gd1al"]
+[ext_resource type="Texture2D" uid="uid://bi0vmksl5ssyn" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Cloud_2.png" id="11_cgqhs"]
+[ext_resource type="Script" path="res://scripts/cloud.gd" id="12_ofyt2"]
+[ext_resource type="Texture2D" uid="uid://cx4ukeh4uph5c" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Player Ground Rock 1.png" id="14_1qn44"]
+[ext_resource type="Texture2D" uid="uid://q444fli2xk3u" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Dried Tree.png" id="16_nrhal"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iu1bv"]
 radius = 7.0
@@ -122,14 +118,34 @@ _data = {
 [node name="Game" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(575, 326)
-scale = Vector2(1150, 650)
-texture = SubResource("GradientTexture1D_ay7fj")
+position = Vector2(575, 156)
+scale = Vector2(1, 0.5)
+texture = ExtResource("1_3s3mg")
+
+[node name="Sun" type="Sprite2D" parent="."]
+position = Vector2(368, -51)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_cck5q")
+
+[node name="SandDuneBack" type="Sprite2D" parent="."]
+position = Vector2(590, 399)
+texture = ExtResource("2_52rg0")
+
+[node name="SandDuneMid" type="Sprite2D" parent="."]
+position = Vector2(593, 437)
+texture = ExtResource("3_m0o1l")
+
+[node name="SandDuneFront" type="Sprite2D" parent="."]
+position = Vector2(580, 461)
+texture = ExtResource("4_k56jt")
+
+[node name="Fog1" type="Sprite2D" parent="."]
+position = Vector2(599, 367)
+texture = ExtResource("6_g164a")
 
 [node name="Ground" type="Sprite2D" parent="."]
 position = Vector2(575.75, 533)
-scale = Vector2(1152.5, 252)
-texture = SubResource("GradientTexture1D_h2tsp")
+texture = ExtResource("5_a7nnl")
 
 [node name="BaseFrontEntrance" type="Sprite2D" parent="."]
 position = Vector2(902, 389)
@@ -159,5 +175,27 @@ bullet_velocity = 800.0
 
 [node name="Gun" parent="Turret" index="0"]
 rotation = 0.621786
+
+[node name="Cloud" type="Sprite2D" parent="."]
+position = Vector2(19, 7)
+texture = ExtResource("10_gd1al")
+centered = false
+script = ExtResource("12_ofyt2")
+speed = 15.0
+
+[node name="Cloud2" type="Sprite2D" parent="."]
+position = Vector2(635, 46)
+texture = ExtResource("11_cgqhs")
+centered = false
+script = ExtResource("12_ofyt2")
+speed = 30.0
+
+[node name="PlayerGroundRock1" type="Sprite2D" parent="."]
+position = Vector2(682, 430)
+texture = ExtResource("14_1qn44")
+
+[node name="DriedTree" type="Sprite2D" parent="."]
+position = Vector2(427, 364)
+texture = ExtResource("16_nrhal")
 
 [editable path="Turret"]

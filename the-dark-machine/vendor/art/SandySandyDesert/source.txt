@@ -1,0 +1,5 @@
+Creator: Emulator Studios
+Source: https://emulatorstudios.itch.io/vector-art-tutorial-pack-sandy-sandy-dunes-desert
+License: free but credit appreciated
+
+If you like the art, please go to the above source URL instead of copying directly from this repository.
