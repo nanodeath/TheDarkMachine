@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvi4r8myrjxeq"]
+
+[ext_resource type="Script" path="res://scripts/user_placed.gd" id="1_qniyl"]
+
+[node name="UserPlaced" type="Node"]
+script = ExtResource("1_qniyl")

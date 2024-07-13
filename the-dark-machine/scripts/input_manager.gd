@@ -14,14 +14,19 @@ func _unhandled_input(event):
 			var collisions := space_state.intersect_point(query_params)
 			for c in collisions:
 				var collider := c["collider"] as Node
-				if collider.has_node("UserPlaced"):
-					collider.queue_free()
+				collider = _get_user_node(collider)
+				if collider:
+					var user_placed := collider.get_node("UserPlaced") as UserPlaced
 					get_viewport().set_input_as_handled()
+					user_placed.return_equipment()
 					break
-				# If we're on a special ClickTarget node, may need to check the
-				# parent too
-				collider = collider.get_parent()
-				if collider.has_node("UserPlaced"):
-					collider.queue_free()
-					get_viewport().set_input_as_handled()
-					break
+
+func _get_user_node(n: Node) -> Node:
+	if n.has_node("UserPlaced"):
+		return n
+	# If we're on a special ClickTarget node, may need to check the
+	# parent, too.
+	var p := n.get_parent()
+	if p and p.has_node("UserPlaced"):
+		return p
+	return null

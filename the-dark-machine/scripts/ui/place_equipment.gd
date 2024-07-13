@@ -2,6 +2,7 @@ extends Control
 
 @export var equipment_type: PackedScene
 @export var initial_count: int
+
 @onready var equipment_button = $EquipmentButton
 @onready var available_counter: RichTextLabel = $AvailableCounter
 var ghost: Node2D
@@ -59,8 +60,8 @@ func _unhandled_input(event):
 				# Place the item!
 				ghost.modulate = Color.WHITE
 				ghost.process_mode = Node.PROCESS_MODE_INHERIT
-				var user_placed_marker := Node.new()
-				user_placed_marker.name = "UserPlaced"
+				var user_placed_marker := preload("res://scenes/user_placed.tscn").instantiate() as UserPlaced
+				user_placed_marker.returning.connect(func(): available_count += 1)
 				ghost.add_child(user_placed_marker)
 				available_count -= 1
 				ghost = null
