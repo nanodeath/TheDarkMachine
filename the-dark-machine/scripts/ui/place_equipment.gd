@@ -1,11 +1,22 @@
 extends Control
 
 @export var equipment_type: PackedScene
+@export var initial_count: int
 @onready var equipment_button = $EquipmentButton
+@onready var available_counter: RichTextLabel = $AvailableCounter
 var ghost: Node2D
+
+var available_count: int:
+	#get:
+		#return available_count
+	set(value):
+		available_count = value
+		available_counter.text = str(available_count)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	available_count = initial_count
 	equipment_button.pressed.connect(self._pressed)
 	var equipment := equipment_type.instantiate()
 	
@@ -22,6 +33,9 @@ func _ready():
 	equipment.queue_free()
 
 func _pressed():
+	if available_count <= 0:
+		return
+	
 	var equipment := equipment_type.instantiate()
 	equipment.process_mode = Node.PROCESS_MODE_DISABLED
 	get_tree().root.add_child(equipment)
@@ -39,6 +53,7 @@ func _unhandled_input(event):
 			if ghost.has_method("equipment_connect"):
 				var done_connecting = ghost.equipment_connect(button_event.global_position)
 				if done_connecting:
+					available_count -= 1
 					ghost = null
 			else:
 				# Place the item!
@@ -47,6 +62,7 @@ func _unhandled_input(event):
 				var user_placed_marker := Node.new()
 				user_placed_marker.name = "UserPlaced"
 				ghost.add_child(user_placed_marker)
+				available_count -= 1
 				ghost = null
 			get_viewport().set_input_as_handled()
 		elif button_event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():

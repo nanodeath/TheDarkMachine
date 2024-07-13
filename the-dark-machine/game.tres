@@ -6,4 +6,6 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 
 [resource]
+EquipmentButton/base_type = &"RichTextLabel"
+EquipmentButton/font_sizes/normal_font_size = 24
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_npfoc")

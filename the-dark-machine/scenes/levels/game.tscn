@@ -55,10 +55,12 @@ alignment = 1
 [node name="EquipmentButtonContainer" parent="CanvasLayer/UI/MarginContainer/HBoxContainer" instance=ExtResource("2_dnria")]
 layout_mode = 2
 equipment_type = ExtResource("16_ou3wv")
+initial_count = 1
 
 [node name="EquipmentButtonContainer2" parent="CanvasLayer/UI/MarginContainer/HBoxContainer" instance=ExtResource("2_dnria")]
 layout_mode = 2
 equipment_type = ExtResource("4_odxye")
+initial_count = 1
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(575, 156)
