@@ -46,5 +46,7 @@ func equipment_connect(global_position: Vector2):
 			print("Can connect target to: ", connectable_target)
 			target = connectable_target
 			break
-		
+	
+	if source and target:
+		source.connect_to(target)
 	#print("Connecting wire at ", global_position)

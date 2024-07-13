@@ -100,10 +100,9 @@ position = Vector2(924, 560)
 [node name="Turret" parent="." instance=ExtResource("4_8bcj8")]
 position = Vector2(1014, 350)
 scale = Vector2(-2, 2)
-bullet_velocity = 800.0
 
-[node name="Gun" parent="Turret" index="0"]
-rotation = 0.621786
+[node name="Gun" parent="Turret/TurretBracket" index="0"]
+rotation = 0.810102
 
 [node name="Cloud" type="Sprite2D" parent="."]
 position = Vector2(19, 7)

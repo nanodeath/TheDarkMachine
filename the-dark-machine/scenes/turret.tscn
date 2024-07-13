@@ -11,7 +11,7 @@ resource_name = "fire_burst"
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("..")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -38,11 +38,12 @@ _data = {
 radius = 29.0
 
 [node name="Turret" type="StaticBody2D"]
+script = ExtResource("2_cwfj4")
+bullet = ExtResource("3_fbqy0")
+bullet_velocity = 500.0
 
 [node name="TurretBracket" type="Sprite2D" parent="."]
 texture = ExtResource("1_lon2g")
-script = ExtResource("2_cwfj4")
-bullet = ExtResource("3_fbqy0")
 
 [node name="Gun" type="Sprite2D" parent="TurretBracket"]
 show_behind_parent = true
@@ -50,7 +51,8 @@ position = Vector2(0, -4)
 texture = ExtResource("2_etd1q")
 offset = Vector2(3, 2.5)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TurretBracket"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../TurretBracket")
 callback_mode_process = 0
 libraries = {
 "": SubResource("AnimationLibrary_0pmnw")
