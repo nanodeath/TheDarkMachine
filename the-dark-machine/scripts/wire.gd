@@ -4,8 +4,12 @@ var source: ConnectableSource
 var target: ConnectableTarget
 @onready var line = $Line2D
 @onready var sprite = $Sprite
+@onready var collision_shape_2d: CollisionShape2D = $ClickTarget/CollisionShape2D
+var clickable_rect: RectangleShape2D
 
 func _ready():
+	clickable_rect = collision_shape_2d.shape.duplicate()
+	collision_shape_2d.shape = clickable_rect
 	line.add_point(Vector2.ZERO)
 	line.add_point(Vector2.ZERO)
 
@@ -20,7 +24,13 @@ func _process(delta):
 			return
 		p1 = source.global_position
 		p2 = target.global_position
+		var length := p1.distance_to(p2)
+		var shape_scale := collision_shape_2d.global_scale.x
 		show_sprite = false
+		
+		clickable_rect.size.x = length * shape_scale
+		collision_shape_2d.global_position = (p1 + p2)/2
+		collision_shape_2d.global_rotation = p1.angle_to_point(p2)
 	elif source or target:
 		if source:
 			p1 = source.global_position
@@ -61,15 +71,16 @@ func equipment_connect(global_position: Vector2, user_placed: UserPlaced) -> boo
 	
 	if source and target:
 		source.connect_to(target)
+		add_child(user_placed)
 		# Release the wire
 		var disconnected = false
 		source.tree_exiting.connect(func():
-			if not disconnected:
+			if not disconnected and user_placed:
 				disconnected = true
 				user_placed.return_equipment()
 			)
 		target.tree_exiting.connect(func():
-			if not disconnected:
+			if not disconnected and user_placed:
 				disconnected = true
 				user_placed.return_equipment()
 			)

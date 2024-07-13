@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvq1fl61sriad"]
+[gd_scene load_steps=4 format=3 uid="uid://dvq1fl61sriad"]
 
 [ext_resource type="Script" path="res://scripts/wire.gd" id="1_c3wpu"]
 [ext_resource type="Texture2D" uid="uid://cf41afodolmx2" path="res://art/wire.png" id="1_nknup"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7omk8"]
+size = Vector2(16, 16)
 
 [node name="Wire" type="Node2D"]
 script = ExtResource("1_c3wpu")
@@ -13,3 +16,11 @@ texture = ExtResource("1_nknup")
 [node name="Line2D" type="Line2D" parent="."]
 width = 4.0
 default_color = Color(1, 0, 0, 1)
+
+[node name="ClickTarget" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickTarget"]
+rotation = -0.471239
+shape = SubResource("RectangleShape2D_7omk8")
