@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://btk3t55b1cdo5"]
+
+[ext_resource type="Texture2D" uid="uid://kw5xoj4idbfr" path="res://art/floor_pushbutton.png" id="1_53wcs"]
+[ext_resource type="Script" path="res://scripts/ui/place_equipment.gd" id="2_6xbpo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4txh"]
+atlas = ExtResource("1_53wcs")
+region = Rect2(0, 0, 16, 16)
+
+[node name="EquipmentButtonContainer" type="PanelContainer"]
+script = ExtResource("2_6xbpo")
+
+[node name="EquipmentButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_o4txh")
+stretch_mode = 4

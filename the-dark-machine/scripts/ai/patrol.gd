@@ -10,7 +10,7 @@ func _ready():
 	patrol()
 		
 func patrol():
-	var tween := get_tree().create_tween()
+	var tween := create_tween()
 	tween.set_loops()
 	var parent := get_parent()
 	if move_right_initially:
