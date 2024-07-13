@@ -72,6 +72,10 @@ func equipment_connect(global_position: Vector2, user_placed: UserPlaced) -> boo
 	if source and target:
 		source.connect_to(target)
 		add_child(user_placed)
+		user_placed.returning.connect(func():
+			if source and target:
+				source.disconnect_from(target)
+		)
 		# Release the wire
 		var disconnected = false
 		source.tree_exiting.connect(func():

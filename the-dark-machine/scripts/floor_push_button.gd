@@ -12,6 +12,7 @@ func _ready():
 	body_exited.connect(self._body_exited)
 	
 	connectable_source.connection_established.connect(self._link_to_target)
+	connectable_source.connection_lost.connect(self._unlink_from_target)
 
 func _body_entered(body: Node2D):
 	touch_count += 1
@@ -26,5 +27,6 @@ func _body_exited(body: Node2D):
 
 func _link_to_target(target: ConnectableTarget):
 	button_pushed.connect(target.activate)
-	pass
-	
+
+func _unlink_from_target(target: ConnectableTarget):
+	button_pushed.disconnect(target.activate)
