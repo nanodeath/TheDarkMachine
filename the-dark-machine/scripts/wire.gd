@@ -14,6 +14,10 @@ func _process(delta):
 	var p2: Vector2
 	var show_sprite := true
 	if source and target:
+		if !is_instance_valid(source) || !is_instance_valid(target):
+			# TODO need to disconnect at appropriate time
+			queue_free()
+			return
 		p1 = source.global_position
 		p2 = target.global_position
 		show_sprite = false
@@ -44,6 +48,9 @@ func equipment_connect(global_position: Vector2) -> bool:
 		if connectable_source and connectable_source.wire_compatible:
 			print("Can connect source to: ", connectable_source)
 			source = connectable_source
+			#get_parent().remove_child(self)
+			#source.add_child(self)
+			reparent(source)
 			break
 		
 		var connectable_target := collider.get_node_or_null("ConnectableTarget") as ConnectableTarget

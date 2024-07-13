@@ -8,3 +8,6 @@ signal connection_lost(target: ConnectableTarget)
 
 func connect_to(target: ConnectableTarget):
 	emit_signal("connection_established", target)
+
+func disconnect_from(target: ConnectableTarget):
+	emit_signal("connection_lost", target)
