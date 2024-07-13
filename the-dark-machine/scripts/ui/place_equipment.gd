@@ -35,8 +35,11 @@ func _unhandled_input(event):
 	if ghost and event is InputEventMouseButton:
 		var button_event := event as InputEventMouseButton
 		if button_event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
+			# defined in wire.gd
 			if ghost.has_method("equipment_connect"):
-				ghost.equipment_connect(button_event.global_position)
+				var done_connecting = ghost.equipment_connect(button_event.global_position)
+				if done_connecting:
+					ghost = null
 			else:
 				# Place the item!
 				ghost.modulate = Color.WHITE
@@ -45,10 +48,13 @@ func _unhandled_input(event):
 				user_placed_marker.name = "UserPlaced"
 				ghost.add_child(user_placed_marker)
 				ghost = null
+			get_viewport().set_input_as_handled()
 		elif button_event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
 			_cancel_placement()
+			get_viewport().set_input_as_handled()
 	elif ghost and event.is_action_released("ui_cancel"):
 		_cancel_placement()
+		get_viewport().set_input_as_handled()
 
 func _cancel_placement():
 	ghost.queue_free()

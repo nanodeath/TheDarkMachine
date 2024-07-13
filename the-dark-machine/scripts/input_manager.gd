@@ -13,4 +13,5 @@ func _unhandled_input(event):
 				var collider := c["collider"] as Node
 				if collider.has_node("UserPlaced"):
 					collider.queue_free()
+					get_viewport().set_input_as_handled()
 					break
