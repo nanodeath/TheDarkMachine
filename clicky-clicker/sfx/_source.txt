@@ -1,3 +1,0 @@
-Author: Robin Lamb:
-License: Public Domain
-Source: https://opengameart.org/content/ui-sound-effects-button-clicks-user-feedback-notifications
