@@ -2,8 +2,6 @@ extends Control
 
 @export var equipment_type: PackedScene
 @onready var equipment_button = $EquipmentButton
-var equipment: Node2D
-
 var ghost: Node2D
 
 # Called when the node enters the scene tree for the first time.
@@ -37,7 +35,10 @@ func _process(delta):
 func _unhandled_input(event):
 	if ghost and event is InputEventMouseButton:
 		var button_event := event as InputEventMouseButton
-		if button_event.button_index == MOUSE_BUTTON_LEFT:
-			ghost.modulate = Color.WHITE
-			ghost.process_mode = Node.PROCESS_MODE_INHERIT
-			ghost = null
+		if button_event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
+			if ghost.has_method("equipment_connect"):
+				ghost.equipment_connect(button_event.global_position)
+			else:
+				ghost.modulate = Color.WHITE
+				ghost.process_mode = Node.PROCESS_MODE_INHERIT
+				ghost = null

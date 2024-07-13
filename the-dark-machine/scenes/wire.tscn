@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvq1fl61sriad"]
+[gd_scene load_steps=3 format=3 uid="uid://dvq1fl61sriad"]
 
+[ext_resource type="Script" path="res://scripts/wire.gd" id="1_c3wpu"]
 [ext_resource type="Texture2D" uid="uid://cf41afodolmx2" path="res://art/wire.png" id="1_nknup"]
 
 [node name="Wire" type="Node2D"]
+script = ExtResource("1_c3wpu")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("1_nknup")
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 4.0
+default_color = Color(1, 0, 0, 1)
