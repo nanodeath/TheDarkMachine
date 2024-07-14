@@ -80,7 +80,7 @@ jobs:
     name: "Web Deploy: itch.io"
     needs: build-web
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/mainline' && false
+    if: github.ref == 'refs/heads/mainline'
     env:
       BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
     steps:
