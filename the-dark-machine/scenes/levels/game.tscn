@@ -1,15 +1,15 @@
-[gd_scene load_steps=40 format=3 uid="uid://c1hq5ly6jxajr"]
+[gd_scene load_steps=42 format=3 uid="uid://c1hq5ly6jxajr"]
 
 [ext_resource type="Texture2D" uid="uid://b5h5v0tkjbu4c" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sky Horizon.png" id="1_3s3mg"]
-[ext_resource type="Theme" uid="uid://cdl6ttsrrepl5" path="res://game.tres" id="1_gpqwa"]
+[ext_resource type="PackedScene" uid="uid://dhhyam1thfcbi" path="res://scenes/ui/ui_layer.tscn" id="1_48kxh"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_l6mip"]
 [ext_resource type="Texture2D" uid="uid://bwwd2xlwproyp" path="res://art/base_front_entrance.png" id="1_p2wh8"]
 [ext_resource type="Texture2D" uid="uid://5nlmkm6khrv4" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Back.png" id="2_52rg0"]
 [ext_resource type="Texture2D" uid="uid://dbdwnecs0yj0l" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Sun.png" id="2_cck5q"]
-[ext_resource type="PackedScene" uid="uid://btk3t55b1cdo5" path="res://scenes/ui/equipment_button_container.tscn" id="2_dnria"]
+[ext_resource type="PackedScene" uid="uid://cu58aolav0trt" path="res://scenes/levels/level2.tscn" id="2_yv6dh"]
 [ext_resource type="Texture2D" uid="uid://8rw3f5aq05xo" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Mid.png" id="3_m0o1l"]
 [ext_resource type="PackedScene" uid="uid://dfcqn8x5s3vyf" path="res://scenes/turret.tscn" id="4_8bcj8"]
 [ext_resource type="Texture2D" uid="uid://l4r2snreg772" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Sand Dune Front.png" id="4_k56jt"]
-[ext_resource type="PackedScene" uid="uid://dvq1fl61sriad" path="res://scenes/wire.tscn" id="4_odxye"]
 [ext_resource type="Texture2D" uid="uid://bhle88x5p51gh" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Background Horizon.png" id="5_a7nnl"]
 [ext_resource type="Texture2D" uid="uid://cc5itir6ki0ar" path="res://vendor/art/SandySandyDesert/Background Terrain Elements/PNGs/Fog 1.png" id="6_g164a"]
 [ext_resource type="PackedScene" uid="uid://b0i32n031m5nt" path="res://scenes/soldier.tscn" id="9_skyjd"]
@@ -20,8 +20,12 @@
 [ext_resource type="Texture2D" uid="uid://cx4ukeh4uph5c" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Player Ground Rock 1.png" id="14_1qn44"]
 [ext_resource type="Texture2D" uid="uid://q444fli2xk3u" path="res://vendor/art/SandySandyDesert/Background Elements/Individual PNGs/Dried Tree.png" id="16_nrhal"]
 [ext_resource type="PackedScene" uid="uid://dt5ij0j1l0tmo" path="res://scenes/floor_push_button.tscn" id="16_ou3wv"]
-[ext_resource type="Script" path="res://scripts/input_manager.gd" id="20_13r6i"]
+[ext_resource type="PackedScene" uid="uid://ernpycs02fu" path="res://scenes/ui/input_manager.tscn" id="19_262mb"]
 [ext_resource type="PackedScene" uid="uid://bhiejapru68ft" path="res://scenes/days_since_last_accident.tscn" id="21_qflkp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lcyn6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rnnwe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_am5af"]
 atlas = ExtResource("13_xmdg5")
@@ -149,45 +153,27 @@ animations = [{
 }]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_l6mip")
+next_level = ExtResource("2_yv6dh")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" parent="." instance=ExtResource("1_48kxh")]
 
-[node name="UI" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
+[node name="NextLevelButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme = ExtResource("1_gpqwa")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -64.0
-offset_right = 32.0
-grow_horizontal = 2
+offset_left = -117.0
+offset_top = -91.0
+offset_right = -69.0
+offset_bottom = -43.0
+grow_horizontal = 0
 grow_vertical = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="EquipmentButtonContainer" parent="CanvasLayer/UI/MarginContainer/HBoxContainer" instance=ExtResource("2_dnria")]
-layout_mode = 2
-equipment_type = ExtResource("16_ou3wv")
-initial_count = 1
-
-[node name="EquipmentButtonContainer2" parent="CanvasLayer/UI/MarginContainer/HBoxContainer" instance=ExtResource("2_dnria")]
-layout_mode = 2
-equipment_type = ExtResource("4_odxye")
-initial_count = 1
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lcyn6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rnnwe")
+disabled = true
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(575, 156)
@@ -265,15 +251,15 @@ process_mode = 4
 visible = false
 position = Vector2(728, 584)
 
-[node name="InputManager" type="Node2D" parent="."]
-script = ExtResource("20_13r6i")
-clickable_mask = 16
+[node name="InputManager" parent="." instance=ExtResource("19_262mb")]
 
 [node name="DaysSinceLastAccident" parent="." instance=ExtResource("21_qflkp")]
 position = Vector2(868, 120)
 
+[connection signal="pressed" from="CanvasLayer/NextLevelButton" to="." method="go_to_next_level" flags=6]
 [connection signal="died" from="Soldier" to="DaysSinceLastAccident" method="reset_counter" flags=6]
 [connection signal="died" from="Soldier" to="BaseFrontEntrance/Door" method="play" flags=6 binds= [&"open"]]
+[connection signal="died" from="Soldier" to="CanvasLayer/NextLevelButton" method="set_disabled" flags=6 binds= [false]]
 [connection signal="button_pushed" from="PushButton" to="Turret" method="shoot_burst"]
 
 [editable path="Turret"]

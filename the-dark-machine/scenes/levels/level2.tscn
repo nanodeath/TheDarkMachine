@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu58aolav0trt"]
+
+[ext_resource type="PackedScene" uid="uid://dhhyam1thfcbi" path="res://scenes/ui/ui_layer.tscn" id="1_dpn3l"]
+[ext_resource type="PackedScene" uid="uid://ernpycs02fu" path="res://scenes/ui/input_manager.tscn" id="2_pnvr3"]
+
+[node name="Game" type="Node2D"]
+
+[node name="UI Layer" parent="." instance=ExtResource("1_dpn3l")]
+
+[node name="InputManager" parent="." instance=ExtResource("2_pnvr3")]

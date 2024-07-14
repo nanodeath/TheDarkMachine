@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhhyam1thfcbi"]
+
+[ext_resource type="Theme" uid="uid://cdl6ttsrrepl5" path="res://game.tres" id="1_gdqu4"]
+[ext_resource type="PackedScene" uid="uid://btk3t55b1cdo5" path="res://scenes/ui/equipment_button_container.tscn" id="2_i14gc"]
+[ext_resource type="PackedScene" uid="uid://dt5ij0j1l0tmo" path="res://scenes/floor_push_button.tscn" id="3_xvebg"]
+[ext_resource type="PackedScene" uid="uid://dvq1fl61sriad" path="res://scenes/wire.tscn" id="4_ig15s"]
+
+[node name="UI Layer" type="CanvasLayer"]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_gdqu4")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="EquipmentButtonContainer" parent="UI/MarginContainer/HBoxContainer" instance=ExtResource("2_i14gc")]
+layout_mode = 2
+equipment_type = ExtResource("3_xvebg")
+initial_count = 1
+
+[node name="EquipmentButtonContainer2" parent="UI/MarginContainer/HBoxContainer" instance=ExtResource("2_i14gc")]
+layout_mode = 2
+equipment_type = ExtResource("4_ig15s")
+initial_count = 1

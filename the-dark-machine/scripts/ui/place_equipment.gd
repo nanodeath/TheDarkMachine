@@ -39,7 +39,7 @@ func _pressed():
 	
 	var equipment := equipment_type.instantiate()
 	equipment.process_mode = Node.PROCESS_MODE_DISABLED
-	get_tree().root.add_child(equipment)
+	get_node("/root/Game").add_child(equipment)
 	ghost = equipment
 
 func _process(delta):

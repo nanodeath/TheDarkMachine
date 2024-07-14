@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqdo1q0v8u365"]
+
+[ext_resource type="Script" path="res://scripts/next_level_click_zone.gd" id="1_snxhk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r0bvt"]
+
+[node name="NextLevelClickZone" type="Area2D"]
+script = ExtResource("1_snxhk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_r0bvt")
